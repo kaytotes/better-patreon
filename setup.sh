@@ -111,6 +111,74 @@ fi
 echo ""
 
 echo "================================================================="
+echo "Attempting To Build Fresh Database"
+echo "================================================================="
+
+./vessel artisan migrate:fresh
+
+if [ $? -eq 0 ];then
+   echo -e "\nDone!\n"
+else
+   echo -e "\nSomething went wrong, Exiting!\n"
+   exit 1
+fi
+
+./vessel artisan db:seed
+
+if [ $? -eq 0 ];then
+   echo -e "\nDone!\n"
+else
+   echo -e "\nSomething went wrong, Exiting!\n"
+   exit 1
+fi
+
+echo ""
+
+echo "================================================================="
+echo "Init Laravel Passport oAuth"
+echo "================================================================="
+
+echo ""
+
+./vessel artisan passport:install --force
+./vessel artisan passport:keys
+
+echo ""
+
+echo "================================================================="
+echo "Clearing Redis"
+echo "================================================================="
+
+echo ""
+
+./vessel exec redis redis-cli FLUSHALL
+
+echo ""
+
+echo "================================================================="
+echo "Clearing Caches"
+echo "================================================================="
+
+echo ""
+
+./vessel artisan config:clear
+./vessel artisan cache:clear
+
+echo ""
+
+echo "================================================================="
+echo "Generating IDE Helper Files"
+echo "================================================================="
+
+./vessel artisan ide-helper:generate
+./vessel artisan ide-helper:meta
+./vessel artisan ide-helper:models --nowrite
+
+echo ""
+
+echo ""
+
+echo "================================================================="
 echo "Scaffolding Complete!"
 echo "================================================================="
 

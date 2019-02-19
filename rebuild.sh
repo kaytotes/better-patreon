@@ -16,8 +16,8 @@ echo ""
 read -e -p "Would you like to kill the Database and Redis Cache? (y/n)" option
 
 if [ $option = "y" ]; then
-    docker volume rm betterpatreon_vesselmysql
-    docker volume rm betterpatreon_vesselredis
+    docker volume rm better-patreon_vesselmysql
+    docker volume rm better-patreon_vesselredis
 fi
 
 if [ $option = "n" ]; then
