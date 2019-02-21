@@ -123,15 +123,6 @@ else
    exit 1
 fi
 
-./vessel artisan db:seed
-
-if [ $? -eq 0 ];then
-   echo -e "\nDone!\n"
-else
-   echo -e "\nSomething went wrong, Exiting!\n"
-   exit 1
-fi
-
 echo ""
 
 echo "================================================================="
@@ -142,6 +133,17 @@ echo ""
 
 ./vessel artisan passport:install --force
 ./vessel artisan passport:keys
+
+echo ""
+
+./vessel artisan db:seed
+
+if [ $? -eq 0 ];then
+   echo -e "\nDone!\n"
+else
+   echo -e "\nSomething went wrong, Exiting!\n"
+   exit 1
+fi
 
 echo ""
 
