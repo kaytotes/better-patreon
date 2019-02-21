@@ -16,4 +16,8 @@ return [
     'failed' => 'These credentials do not match our records.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
 
+    'account_not_found' => 'Could not find an account associated with this email address.',
+    'invalid_password' => 'The password you have entered is incorrect.',
+
+    'logout_success' => 'Successfully logged out.',
 ];
