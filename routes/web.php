@@ -12,14 +12,21 @@
 */
 
 /* Base Pages */
-Route::get('', 'Base\Pages\Home')->name('home');
+Route::get('', 'Web\Base\Pages\Home')->name('home');
 
 /* Login Page */
-Route::get('login', 'Auth\LoginController')->name('login');
+Route::get('login', 'Web\Auth\LoginController')->name('login');
 
 /* Registration */
-Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+Route::get('register', 'Web\Auth\RegisterController')->name('register');
 
 /* Password Reset */
-Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
-Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+Route::get('password/reset', 'Web\Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+Route::post('password/email', 'Web\Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+Route::get('password/reset/{token}', 'Web\Auth\ResetPasswordController@showResetForm')->name('password.reset');
+Route::post('password/reset', 'Web\Auth\ResetPasswordController@reset')->name('password.update');
+
+/* Email Verification */
+Route::get('email/verify', 'Web\Auth\VerificationController@show')->name('verification.notice');
+Route::get('email/verify/{id}', 'Web\Auth\VerificationController@verify')->name('verification.verify');
+Route::get('email/resend', 'Web\Auth\VerificationController@resend')->name('verification.resend');
