@@ -11,8 +11,11 @@
 |
 */
 
+/* Base Pages */
+Route::get('', 'Base\Pages\Home')->name('home');
+
 /* Login Page */
-Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::get('login', 'Auth\LoginController')->name('login');
 
 /* Registration */
 Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
@@ -20,9 +23,3 @@ Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('re
 /* Password Reset */
 Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
 Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/home', 'HomeController@index')->name('home');
