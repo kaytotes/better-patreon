@@ -21,7 +21,18 @@ return PhpCsFixer\Config::create()
     ->setRules(array(
         'psr0' => false,
         '@PSR2' => true,
+        'array_syntax' => ['syntax' => 'short'],
         'blank_line_after_namespace' => true,
+        'blank_line_after_opening_tag' => true,
+        'linebreak_after_opening_tag' => true,
+        'phpdoc_no_empty_return' => true,
+        'phpdoc_order' => true,
+        'no_unused_imports' => true,
+        'no_useless_else' => true,
+        'trailing_comma_in_multiline_array' => true,
+        'ordered_imports' => [
+            'sort_algorithm' => 'alpha',
+        ],
         'braces' => true,
         'class_definition' => true,
         'elseif' => true,
