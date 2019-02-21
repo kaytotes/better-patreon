@@ -11,10 +11,18 @@
 |
 */
 
+/* Login Page */
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+
+/* Registration */
+Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+
+/* Password Reset */
+Route::get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+
 Route::get('/', function () {
     return view('welcome');
 });
-
-Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
