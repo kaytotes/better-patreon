@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\User as UserResource;
 use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -37,7 +38,7 @@ class LoginController extends Controller
             return response()->json([
                 'message' => __('auth.login_success'),
                 'token' => $token,
-                'user' => $user,
+                'user' => new UserResource($user),
             ], Response::HTTP_OK);
         }
 

@@ -42,6 +42,16 @@ class User extends Authenticatable
     }
 
     /**
+     * Whether or not the User has a verified email address.
+     *
+     * @return boolean
+     */
+    public function isVerified(): bool
+    {
+        return ! is_null($this->email_verified_at);
+    }
+
+    /**
      * Always Hash the password field when it gets updated.
      *
      * @param string $value
