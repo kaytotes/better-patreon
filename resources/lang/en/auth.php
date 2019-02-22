@@ -20,5 +20,6 @@ return [
     'invalid_password' => 'The password you have entered is incorrect.',
 
     'registration_complete' => 'Account Registered!',
+    'login_success' => 'Successfully logged in.',
     'logout_success' => 'Successfully logged out.',
 ];

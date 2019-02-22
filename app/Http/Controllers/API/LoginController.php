@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Http\Response;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * Handles the login of a User, generating a token and returning it.
@@ -21,6 +21,7 @@ class LoginController extends Controller
             'password' => 'required|string',
         ]);
 
+        /* Find the User or Fail */
         try {
             $user = User::whereEmail($data['email'])->firstOrFail();
         } catch (ModelNotFoundException $e) {
@@ -29,17 +30,20 @@ class LoginController extends Controller
             ], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
+        /* Compare password hash and return token if matching */
         if (Hash::check($data['password'], $user->password)) {
             $token = $user->createToken('Laravel Passport Grant Client')->accessToken;
 
             return response()->json([
+                'message' => __('auth.login_success'),
                 'token' => $token,
                 'user' => $user,
             ], Response::HTTP_OK);
-        } else {
-            return response()->json([
-                'message' => __('auth.invalid_password'),
-            ], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
+
+        /* Otherwise must be an invalid password */
+        return response()->json([
+            'message' => __('auth.invalid_password'),
+        ], Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 }

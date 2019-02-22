@@ -31,7 +31,7 @@ class RegisterController extends Controller
 
         /* Create User and Passport Token */
         $user = User::create($data);
-        $token = $user->createToken('Laravel Passport Grant Client')->accessToken;
+        $token = $user->buildPassportToken();
 
         /* Fire Event */
         event(new Registered($user));

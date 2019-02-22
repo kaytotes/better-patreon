@@ -2,11 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Laravel\Passport\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
+use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -29,6 +28,18 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * Builds a Laravel Passport token and returns it.
+     *
+     * @return string
+     */
+    public function buildPassportToken(): string
+    {
+        $token = $this->createToken('Better Patreon Grant Client')->accessToken;
+
+        return $token;
+    }
 
     /**
      * Always Hash the password field when it gets updated.

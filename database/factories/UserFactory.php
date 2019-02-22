@@ -22,3 +22,7 @@ $factory->define(App\Models\User::class, function (Faker $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+$factory->afterCreating(App\Models\User::class, function (\App\Models\User $user, Faker $faker) {
+    $user->buildPassportToken();
+});
