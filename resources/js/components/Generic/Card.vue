@@ -4,17 +4,17 @@
             <slot name="header"></slot>
         </div>
 
-        <div class="card-body">
+        <div class="card-body" v-if="hasContent">
             <slot name="content"></slot>
         </div>
 
-        <div class="card-footer">
+        <div class="card-footer" v-if="hasFooter">
             <slot name="footer"></slot>
         </div>
     </div>
 </template>
 
-<script lang="ts">
+<script lang='ts'>
     import Vue from 'vue';
     import Component from 'vue-class-component';
 

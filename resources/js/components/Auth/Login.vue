@@ -1,25 +1,27 @@
 <template>
-    <div class="card card-default">
-        <div class="card-header">Login</div>
-
-        <div class="card-body">
-            
+    <b-card>
+        <div slot="header">
+            Login
         </div>
-    </div>
+
+        <div slot="content">
+            <p>Blah</p>
+        </div>
+    </b-card>
 </template>
 
-<script lang="ts">
+<script lang='ts'>
     import Vue from 'vue';
     import Component from 'vue-class-component';
 
     @Component
     export default class LoginComponent extends Vue {
-        created() : void {
-            console.log('Created');
-        }
+        email : string = '';
+        password : string = '';
+        remember : boolean = false;
 
-        mounted() : void {
-            console.log('Mounted');
+        login() : void {
+            console.log('Logging In');
         }
     }
 </script>
