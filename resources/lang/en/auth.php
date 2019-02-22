@@ -22,4 +22,5 @@ return [
     'registration_complete' => 'Account Registered!',
     'login_success' => 'Successfully logged in.',
     'logout_success' => 'Successfully logged out.',
+    'logout_fail' => 'Failed to log out!',
 ];

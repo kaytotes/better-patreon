@@ -42,6 +42,30 @@ class User extends Authenticatable
     }
 
     /**
+     * Logs out the User by revoking tokens.
+     * Can be a single token or all of them.
+     *
+     * @param boolean $all
+     * @return boolean
+     */
+    public function logout(bool $all = false): bool
+    {
+        /* Remove Singular Token */
+        if (! $all) {
+            $this->token()->revoke();
+
+            return true;
+        }
+
+        /* Remove All Tokens */
+        foreach ($this->tokens as $token) {
+            $token->revoke();
+        }
+
+        return true;
+    }
+
+    /**
      * Whether or not the User has a verified email address.
      *
      * @return boolean
