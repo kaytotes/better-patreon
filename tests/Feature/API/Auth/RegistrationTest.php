@@ -93,8 +93,55 @@ class RegistrationTest extends TestCase
         ]);
     }
 
+    /**
+     * Tests email validation including uniqueness.
+     *
+     */
     public function testEmailValidation()
     {
-        $this->assertTrue(false);
+        /* Base Data */
+        $data = [
+            'name' => 'Test User',
+            'password' => 'testing',
+            'password_confirmation' => 'testing',
+        ];
+
+        /* No Email Provided */
+        $response = $this->json('POST', route('api.register'), $data);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertJsonValidationErrors([
+            'email',
+        ]);
+
+        /* Has to be an Email */
+        $data = array_merge($data, [
+            'email' => 'test',
+        ]);
+        $response = $this->json('POST', route('api.register'), $data);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertJsonValidationErrors([
+            'email',
+        ]);
+
+        /* Email too long */
+        $data = array_merge($data, [
+            'email' => str_random(256).'@test.test',
+        ]);
+        $response = $this->json('POST', route('api.register'), $data);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertJsonValidationErrors([
+            'email',
+        ]);
+
+        /* Email not Unique */
+        $user = factory(\App\Models\User::class)->create();
+        $data = array_merge($data, [
+            'email' => $user->email,
+        ]);
+        $response = $this->json('POST', route('api.register'), $data);
+        $response->assertStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+        $response->assertJsonValidationErrors([
+            'email',
+        ]);
     }
 }
