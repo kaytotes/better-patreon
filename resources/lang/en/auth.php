@@ -19,5 +19,6 @@ return [
     'account_not_found' => 'Could not find an account associated with this email address.',
     'invalid_password' => 'The password you have entered is incorrect.',
 
+    'registration_complete' => 'Account Registered!',
     'logout_success' => 'Successfully logged out.',
 ];
